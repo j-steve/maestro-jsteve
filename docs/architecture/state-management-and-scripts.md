@@ -38,7 +38,7 @@ For script-backed settings:
 
 The project `.geminiignore` negates the `.gitignore` exclusion of `.gemini/`, so `read_file` and `write_file` both work on state paths directly.
 
-The Node.js helper scripts remain available and are used by TOML shell blocks in `/maestro:status` and `/maestro:resume` to inject state before the model's first turn:
+The Node.js helper scripts remain available and are used by TOML shell blocks in `/maestroj:status` and `/maestroj:resume` to inject state before the model's first turn:
 
 - `node scripts/read-state.js <relative-path>`
 - `node scripts/read-active-session.js`
@@ -132,7 +132,7 @@ Lifecycle stages:
 
 1. Create `state/active-session.md`
 2. Update per-phase status, files changed, downstream context, errors, token usage
-3. Read via `/maestro:status` and `/maestro:resume` using `read-active-session.js`
+3. Read via `/maestroj:status` and `/maestroj:resume` using `read-active-session.js`
 4. Archive to `state/archive/` and `plans/archive/`
 
 ## Test Coverage

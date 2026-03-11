@@ -4,7 +4,7 @@ This document maps Maestro slash commands to skill activation and execution beha
 
 ## Command Namespace
 
-Maestro commands are defined in `commands/maestro/*.toml` and invoked with `/maestro:<command>`.
+Maestro commands are defined in `commands/maestro/*.toml` and invoked with `/maestroj:<command>`.
 
 Gemini CLI command-loader constraints in effect:
 
@@ -17,15 +17,15 @@ Gemini CLI command-loader constraints in effect:
 
 | Command | Prompt File | Primary Behavior | Skill Usage |
 | --- | --- | --- | --- |
-| `/maestro:orchestrate` | `commands/maestro/orchestrate.toml` | Full orchestration entry point | Starts with `design-dialogue`; workflow later uses planning/execution/session skills; final `code_reviewer` quality gate runs directly in Phase 4 (Complete) before archival |
-| `/maestro:execute` | `commands/maestro/execute.toml` | Execute existing implementation plan | `execution`, `delegation`, `session-management`, `validation`; final `code_reviewer` quality gate runs directly before archival |
-| `/maestro:resume` | `commands/maestro/resume.toml` | Resume active session | `session-management`, `execution`, `delegation`, `validation` |
-| `/maestro:status` | `commands/maestro/status.toml` | Read-only status report | No skill activation required |
-| `/maestro:archive` | `commands/maestro/archive.toml` | Archive active session | `session-management` |
-| `/maestro:review` | `commands/maestro/review.toml` | Standalone review workflow | `code-review` |
-| `/maestro:debug` | `commands/maestro/debug.toml` | Root-cause analysis workflow | Delegates to `debugger` agent |
-| `/maestro:perf-check` | `commands/maestro/perf-check.toml` | Performance analysis workflow | Delegates to `performance_engineer` agent |
-| `/maestro:security-audit` | `commands/maestro/security-audit.toml` | Security analysis workflow | Delegates to `security_engineer` agent |
+| `/maestroj:orchestrate` | `commands/maestro/orchestrate.toml` | Full orchestration entry point | Starts with `design-dialogue`; workflow later uses planning/execution/session skills; final `code_reviewer` quality gate runs directly in Phase 4 (Complete) before archival |
+| `/maestroj:execute` | `commands/maestro/execute.toml` | Execute existing implementation plan | `execution`, `delegation`, `session-management`, `validation`; final `code_reviewer` quality gate runs directly before archival |
+| `/maestroj:resume` | `commands/maestro/resume.toml` | Resume active session | `session-management`, `execution`, `delegation`, `validation` |
+| `/maestroj:status` | `commands/maestro/status.toml` | Read-only status report | No skill activation required |
+| `/maestroj:archive` | `commands/maestro/archive.toml` | Archive active session | `session-management` |
+| `/maestroj:review` | `commands/maestro/review.toml` | Standalone review workflow | `code-review` |
+| `/maestroj:debug` | `commands/maestro/debug.toml` | Root-cause analysis workflow | Delegates to `debugger` agent |
+| `/maestroj:perf-check` | `commands/maestro/perf-check.toml` | Performance analysis workflow | Delegates to `performance_engineer` agent |
+| `/maestroj:security-audit` | `commands/maestro/security-audit.toml` | Security analysis workflow | Delegates to `security_engineer` agent |
 
 ## Prompt Safety Pattern
 
@@ -80,8 +80,8 @@ Gemini CLI discovery and precedence:
 
 ## Execution and Command Coupling Notes
 
-- `/maestro:status` is read-only by prompt contract
-- `/maestro:resume` and `/maestro:status` both depend on `scripts/read-active-session.js`
+- `/maestroj:status` is read-only by prompt contract
+- `/maestroj:resume` and `/maestroj:status` both depend on `scripts/read-active-session.js`
 - Parallel execution behavior is implemented by `scripts/parallel-dispatch.js` and documented in:
   - `skills/execution/SKILL.md`
   - `skills/delegation/SKILL.md`

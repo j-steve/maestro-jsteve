@@ -34,4 +34,4 @@ The current session state is provided below:
 6. Activate the `delegation` skill when delegating to subagents
 7. Activate the `validation` skill to verify phase outputs
 
-If the session state above shows "No active session", inform the user and suggest using `/maestro:orchestrate` to start one."""
+If the session state above shows "No active session", inform the user and suggest using `/maestroj:orchestrate` to start one."""

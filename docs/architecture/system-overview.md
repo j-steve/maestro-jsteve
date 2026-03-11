@@ -21,25 +21,25 @@ Maestro relies on Gemini CLI extension-loading behavior as implemented in `gemin
 
 - Manifest schema: `gemini-extension.json` uses required `name` and `version`, plus `description`, `contextFileName`, and `settings`. Optional extension surfaces (`mcpServers`, `excludeTools`, `themes`) are currently not used by Maestro.
 - Settings flow: `settings[*].envVar` values are configured through `gemini extensions config` and hydrated as environment variables for command prompts, hooks, and scripts.
-- Command discovery: file commands load from user, project, and extension `commands/` directories; Maestro commands are namespaced as `/maestro:*`.
+- Command discovery: file commands load from user, project, and extension `commands/` directories; Maestro commands are namespaced as `/maestroj:*`.
 - Hook validation: Gemini CLI currently accepts only command hooks (`type: "command"`). Legacy plugin-style hook entries are rejected.
 - Skill precedence: built-in skills are merged with extension skills, then user/workspace skills (workspace skills require trust).
 
 ## Slash Commands
 
-Commands are registered from `commands/maestro/*.toml` and invoked as `/maestro:<name>`.
+Commands are registered from `commands/maestro/*.toml` and invoked as `/maestroj:<name>`.
 
 | Command | Source | Purpose |
 | --- | --- | --- |
-| `/maestro:orchestrate` | `commands/maestro/orchestrate.toml` | Full Design -> Plan -> Execute orchestration |
-| `/maestro:execute` | `commands/maestro/execute.toml` | Execute an existing implementation plan |
-| `/maestro:resume` | `commands/maestro/resume.toml` | Resume active orchestration session |
-| `/maestro:status` | `commands/maestro/status.toml` | Read-only active-session summary |
-| `/maestro:archive` | `commands/maestro/archive.toml` | Archive current active session |
-| `/maestro:review` | `commands/maestro/review.toml` | Standalone code review workflow |
-| `/maestro:debug` | `commands/maestro/debug.toml` | Focused debugging workflow |
-| `/maestro:perf-check` | `commands/maestro/perf-check.toml` | Performance assessment workflow |
-| `/maestro:security-audit` | `commands/maestro/security-audit.toml` | Security audit workflow |
+| `/maestroj:orchestrate` | `commands/maestro/orchestrate.toml` | Full Design -> Plan -> Execute orchestration |
+| `/maestroj:execute` | `commands/maestro/execute.toml` | Execute an existing implementation plan |
+| `/maestroj:resume` | `commands/maestro/resume.toml` | Resume active orchestration session |
+| `/maestroj:status` | `commands/maestro/status.toml` | Read-only active-session summary |
+| `/maestroj:archive` | `commands/maestro/archive.toml` | Archive current active session |
+| `/maestroj:review` | `commands/maestro/review.toml` | Standalone code review workflow |
+| `/maestroj:debug` | `commands/maestro/debug.toml` | Focused debugging workflow |
+| `/maestroj:perf-check` | `commands/maestro/perf-check.toml` | Performance assessment workflow |
+| `/maestroj:security-audit` | `commands/maestro/security-audit.toml` | Security audit workflow |
 
 ### Prompt Composition Pattern
 
@@ -51,7 +51,7 @@ Command prompts use defensive wrappers around user input:
 </user-request>
 ```
 
-State-aware commands (`/maestro:status`, `/maestro:resume`) also inject script output via `!{...}` shell injection to read active session state through `node scripts/read-active-session.js`.
+State-aware commands (`/maestroj:status`, `/maestroj:resume`) also inject script output via `!{...}` shell injection to read active session state through `node scripts/read-active-session.js`.
 
 ## Orchestration Lifecycle
 

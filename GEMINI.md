@@ -33,7 +33,7 @@ Before running orchestration commands:
 ## Gemini CLI Integration Constraints
 
 - Extension settings from `gemini-extension.json` are exposed as `MAESTRO_*` env vars via Gemini CLI extension settings; honor them as runtime source of truth.
-- Maestro slash commands are file commands loaded from `commands/maestro/*.toml`; they are expected to resolve as `/maestro:*`.
+- Maestro slash commands are file commands loaded from `commands/maestro/*.toml`; they are expected to resolve as `/maestroj:*`.
 - Hook entries must remain `type: "command"` in `hooks/hooks.json` for compatibility with current Gemini CLI hook validation.
 - Extension workflows run only when the extension is linked/enabled and workspace trust allows extension assets.
 - `ask_user` header fields must not exceed 16 characters. Keep headers short (e.g., `Database`, `Auth`, `Approach`). This limit is enforced by Gemini CLI validation on all `ask_user` calls.
@@ -164,7 +164,7 @@ Resolve `<state_dir>` from `MAESTRO_STATE_DIR` (default `.gemini`):
 
 Use `read_file` and `write_file` directly on state paths — the project `.geminiignore` makes them accessible to Gemini CLI tools. Native parallel execution does not create prompt/result artifact directories under state; batch output is recorded directly in session state.
 
-`/maestro:status` and `/maestro:resume` use `node ${MAESTRO_EXTENSION_PATH:-$HOME/.gemini/extensions/maestro}/scripts/read-active-session.js` in their TOML shell blocks to inject state before the model's first turn.
+`/maestroj:status` and `/maestroj:resume` use `node ${MAESTRO_EXTENSION_PATH:-$HOME/.gemini/extensions/maestro}/scripts/read-active-session.js` in their TOML shell blocks to inject state before the model's first turn.
 
 ## Skills Reference
 

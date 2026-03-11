@@ -26,12 +26,12 @@ The "brain" of the system. This file contains the system prompt for the TechLead
 
 ### 3. Slash Commands (`commands/maestro/`)
 Custom commands registered with the Gemini CLI.
-- `/maestro:orchestrate`: Full Design -> Plan -> Execute workflow.
-- `/maestro:execute`: Execute an existing implementation plan.
-- `/maestro:resume`: Resume an active session.
-- `/maestro:status`: View current session status.
-- `/maestro:archive`: Archive the active session.
-- `/maestro:review`, `/maestro:debug`, `/maestro:perf-check`, `/maestro:security-audit`: Specialized standalone workflows.
+- `/maestroj:orchestrate`: Full Design -> Plan -> Execute workflow.
+- `/maestroj:execute`: Execute an existing implementation plan.
+- `/maestroj:resume`: Resume an active session.
+- `/maestroj:status`: View current session status.
+- `/maestroj:archive`: Archive the active session.
+- `/maestroj:review`, `/maestroj:debug`, `/maestroj:perf-check`, `/maestroj:security-audit`: Specialized standalone workflows.
 
 ### 4. Hooks (`hooks/hooks.json`)
 Middleware that runs during agent execution:

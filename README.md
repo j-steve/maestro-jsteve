@@ -100,7 +100,7 @@ Restart Gemini CLI after installation for the extension to load.
 ### Quick Start
 
 ```
-/maestro:orchestrate Build a REST API for a task management system with user authentication
+/maestroj:orchestrate Build a REST API for a task management system with user authentication
 ```
 
 Maestro will:
@@ -115,23 +115,23 @@ Maestro will:
 
 | Command | Purpose |
 |---------|---------|
-| [`/maestro:orchestrate`](#maestroorchestrate) | Full orchestration workflow (design → plan → execute → complete) |
-| [`/maestro:execute`](#maestroexecute) | Execute an existing implementation plan |
-| [`/maestro:resume`](#maestroresume) | Resume an interrupted session |
-| [`/maestro:review`](#maestroreview) | Standalone code review |
-| [`/maestro:debug`](#maestrodebug) | Standalone debugging session |
-| [`/maestro:security-audit`](#maestrosecurity-audit) | Standalone security assessment |
-| [`/maestro:perf-check`](#maestroperf-check) | Standalone performance analysis |
-| [`/maestro:status`](#maestrostatus) | View current session status |
-| [`/maestro:archive`](#maestroarchive) | Archive the active session |
+| [`/maestroj:orchestrate`](#maestroorchestrate) | Full orchestration workflow (design → plan → execute → complete) |
+| [`/maestroj:execute`](#maestroexecute) | Execute an existing implementation plan |
+| [`/maestroj:resume`](#maestroresume) | Resume an interrupted session |
+| [`/maestroj:review`](#maestroreview) | Standalone code review |
+| [`/maestroj:debug`](#maestrodebug) | Standalone debugging session |
+| [`/maestroj:security-audit`](#maestrosecurity-audit) | Standalone security assessment |
+| [`/maestroj:perf-check`](#maestroperf-check) | Standalone performance analysis |
+| [`/maestroj:status`](#maestrostatus) | View current session status |
+| [`/maestroj:archive`](#maestroarchive) | Archive the active session |
 
 ### Orchestration
 
-#### /maestro:orchestrate
+#### /maestroj:orchestrate
 
 Initiates the full Maestro orchestration workflow.
 
-**Usage**: `/maestro:orchestrate <task description>`
+**Usage**: `/maestroj:orchestrate <task description>`
 
 **Behavior**:
 1. Checks for existing active sessions in `<MAESTRO_STATE_DIR>/state/` (default: `.gemini/state/`)
@@ -142,11 +142,11 @@ Initiates the full Maestro orchestration workflow.
    - Phase 3: Execution
    - Phase 4: Completion & Archival
 
-#### /maestro:execute
+#### /maestroj:execute
 
 Executes an existing implementation plan, skipping design and planning phases.
 
-**Usage**: `/maestro:execute <path-to-implementation-plan>`
+**Usage**: `/maestroj:execute <path-to-implementation-plan>`
 
 **Behavior**:
 1. Reads the specified implementation plan file
@@ -155,11 +155,11 @@ Executes an existing implementation plan, skipping design and planning phases.
 4. Executes phases according to the plan with full progress tracking
 5. Archives the session on completion
 
-#### /maestro:resume
+#### /maestroj:resume
 
 Resumes an interrupted orchestration session.
 
-**Usage**: `/maestro:resume`
+**Usage**: `/maestroj:resume`
 
 **Behavior**:
 1. Reads active session state through `scripts/read-active-session.js` (default path: `.gemini/state/active-session.md`)
@@ -170,11 +170,11 @@ Resumes an interrupted orchestration session.
 
 ### Standalone Tools
 
-#### /maestro:review
+#### /maestroj:review
 
 Runs a standalone code review on staged changes, last commit, or specified paths.
 
-**Usage**: `/maestro:review [file paths or glob patterns]`
+**Usage**: `/maestroj:review [file paths or glob patterns]`
 
 **Behavior**:
 1. Auto-detects review scope: user-specified paths > staged changes > last commit diff
@@ -183,33 +183,33 @@ Runs a standalone code review on staged changes, last commit, or specified paths
 4. Presents findings classified by severity (Critical, Major, Minor, Suggestion)
 5. Every finding references a specific file and line number
 
-#### /maestro:debug
+#### /maestroj:debug
 
 Focused debugging session to investigate and diagnose an issue.
 
-**Usage**: `/maestro:debug <issue description>`
+**Usage**: `/maestroj:debug <issue description>`
 
 **Behavior**:
 1. Delegates to the debugger agent with the issue description
 2. Follows systematic methodology: reproduce, hypothesize, investigate, isolate, verify
 3. Presents root cause analysis with evidence, execution trace, and recommended fix
 
-#### /maestro:security-audit
+#### /maestroj:security-audit
 
 Runs a security assessment on the specified scope.
 
-**Usage**: `/maestro:security-audit <scope>`
+**Usage**: `/maestroj:security-audit <scope>`
 
 **Behavior**:
 1. Delegates to the security_engineer agent
 2. Reviews for OWASP Top 10 vulnerabilities, traces data flow, audits authentication/authorization
 3. Presents findings with CVSS-aligned severity, proof of concept, and remediation steps
 
-#### /maestro:perf-check
+#### /maestroj:perf-check
 
 Runs a performance analysis on the specified scope.
 
-**Usage**: `/maestro:perf-check <scope>`
+**Usage**: `/maestroj:perf-check <scope>`
 
 **Behavior**:
 1. Delegates to the performance_engineer agent
@@ -218,22 +218,22 @@ Runs a performance analysis on the specified scope.
 
 ### Session Management
 
-#### /maestro:status
+#### /maestroj:status
 
 Displays the current orchestration session status.
 
-**Usage**: `/maestro:status`
+**Usage**: `/maestroj:status`
 
 **Behavior**:
 1. Reads the active session state via file injection
 2. Presents phase-by-phase status, file manifest, token usage, and errors
 3. Read-only — does not modify state or continue execution
 
-#### /maestro:archive
+#### /maestroj:archive
 
 Archives the current active orchestration session.
 
-**Usage**: `/maestro:archive`
+**Usage**: `/maestroj:archive`
 
 **Behavior**:
 1. Checks for an active session
@@ -296,7 +296,7 @@ Hook handlers are in `hooks/` and registered via `hooks/hooks.json`.
 
 ```mermaid
 graph TB
-    User([User]) -->|/maestro:orchestrate| TL[TechLead Orchestrator]
+    User([User]) -->|/maestroj:orchestrate| TL[TechLead Orchestrator]
 
     TL -->|Phase 1| DD[Design Dialogue]
     TL -->|Phase 2| IP[Implementation Planning]
@@ -408,12 +408,12 @@ Maestro uses skills to encapsulate detailed methodologies that are activated on 
 
 | Skill | Purpose | Activated By |
 |-------|---------|-------------|
-| `design-dialogue` | Structured requirements gathering and architectural design convergence | `/maestro:orchestrate` (Phase 1) |
-| `implementation-planning` | Phase decomposition, agent assignment, and plan generation | `/maestro:orchestrate` (Phase 2) |
-| `execution` | Phase execution protocols, error handling, and completion workflows | `/maestro:orchestrate` (Phase 3), `/maestro:execute`, `/maestro:resume` |
+| `design-dialogue` | Structured requirements gathering and architectural design convergence | `/maestroj:orchestrate` (Phase 1) |
+| `implementation-planning` | Phase decomposition, agent assignment, and plan generation | `/maestroj:orchestrate` (Phase 2) |
+| `execution` | Phase execution protocols, error handling, and completion workflows | `/maestroj:orchestrate` (Phase 3), `/maestroj:execute`, `/maestroj:resume` |
 | `delegation` | Subagent prompt construction, scope boundaries, and parallel delegation | Any phase involving subagent delegation |
-| `session-management` | Session creation, state updates, resume protocol, and archival | `/maestro:orchestrate`, `/maestro:resume`, `/maestro:archive` |
-| `code-review` | Scope detection, severity classification, and structured review output | `/maestro:review` |
+| `session-management` | Session creation, state updates, resume protocol, and archival | `/maestroj:orchestrate`, `/maestroj:resume`, `/maestroj:archive` |
+| `code-review` | Scope detection, severity classification, and structured review output | `/maestroj:review` |
 | `validation` | Build/lint/test pipeline, project type detection, and result interpretation | Post-phase validation during execution |
 
 ## Parallel Execution
@@ -505,7 +505,7 @@ All state files use YAML frontmatter for machine-readable metadata and Markdown 
 2. Restart Gemini CLI after installation or linking
 3. Check `gemini-extension.json` exists in the maestro directory
 
-### /maestro:orchestrate Not Responding
+### /maestroj:orchestrate Not Responding
 
 1. Ensure GEMINI.md is present in the maestro directory
 2. Check that `commands/maestro/orchestrate.toml` exists
@@ -515,7 +515,7 @@ All state files use YAML frontmatter for machine-readable metadata and Markdown 
 
 1. Verify `active-session.md` exists under your configured state directory (`.gemini/state/` by default)
 2. Check the YAML frontmatter is valid (no syntax errors)
-3. If corrupted, manually fix the YAML or delete and start fresh with `/maestro:orchestrate`
+3. If corrupted, manually fix the YAML or delete and start fresh with `/maestroj:orchestrate`
 
 ### Subagent Errors
 
