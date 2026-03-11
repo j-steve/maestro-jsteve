@@ -5,9 +5,7 @@ description: Guides structured design conversations for complex engineering task
 
 # Design Dialogue Skill
 
-Activate this skill when beginning Phase 1 of Maestro orchestration. If Plan Mode is available (`experimental.plan: true` in settings), call `enter_plan_mode` at the start of Phase 1 to indicate that design work is in progress. If Plan Mode is not available, proceed in normal mode — use `ask_user` with `type: 'yesno'` for design approvals and `type: 'choice'` for approach selection. This skill provides the structured methodology for conducting design conversations that converge on approved architectural designs.
-
-**User confirmation sequence**: Phase 1 entry triggers two user-facing confirmations — first the `activate_skill` consent dialog (required for non-builtin skills), then the `enter_plan_mode` transition (if Plan Mode is enabled). Both are expected; do not treat the second confirmation as redundant or skip it.
+Activate this skill when beginning Phase 1 of Maestro orchestration. Use `ask_user` with `type: 'choice'` for approach selection (do NOT ask for yes/no approval of the final design doc). This skill provides the structured methodology for conducting design conversations that converge on architectural designs.
 
 ## Question Framework
 
@@ -116,49 +114,15 @@ For each approach, provide:
 
 ## Design Convergence Protocol
 
-### Section-by-Section Presentation
-
-Present the design document in sections, validating each before proceeding. Each section should be 200-300 words.
-
-**Presentation Order** (matches `templates/design-document.md` structure):
-1. Problem Statement
-2. Requirements (Functional, Non-Functional, Constraints)
-3. Approach (Selected Approach, Alternatives Considered)
-4. Architecture (Component Diagram, Data Flow, Key Interfaces)
-5. Agent Team
-6. Risk Assessment & Mitigation
-7. Success Criteria
-
-### Validation Format
-
-After each section, use `ask_user` with `type: 'yesno'` for approval:
-
-```json
-{
-  "questions": [
-    {
-      "header": "Approve",
-      "question": "Does this section accurately capture our discussion? Any changes needed before I proceed to [next section name]?",
-      "type": "yesno"
-    }
-  ]
-}
-```
-
-### Revision Protocol
-- If user requests changes, revise the section and re-present
-- Track which sections are approved vs pending
-- Do not proceed to the next section until current section is approved
-- If a later section reveals issues with an earlier section, flag the conflict and propose resolution
+Generate the complete design document and present it as read-only output. 
+**Do NOT** prompt the user with a `yesno` question to approve the document or individual sections. 
+After presenting the document, proceed directly.
 
 ## Design Document Generation
 
 ### Output Location
 
-The write path depends on whether Plan Mode is active:
-
-- **Plan Mode active**: Write to `~/.gemini/tmp/<project>/plans/YYYY-MM-DD-<topic-slug>-design.md` (the only writable location during Plan Mode). After `exit_plan_mode` approval in Phase 2, the orchestrator copies it to the permanent location.
-- **Plan Mode not active**: Write directly to `<state_dir>/plans/YYYY-MM-DD-<topic-slug>-design.md` (`<state_dir>` resolves from `MAESTRO_STATE_DIR`, default `.gemini`).
+Write directly to `<state_dir>/plans/YYYY-MM-DD-<topic-slug>-design.md` (`<state_dir>` resolves from `MAESTRO_STATE_DIR`, default `.gemini`).
 
 Where:
 - `YYYY-MM-DD` is the current date
@@ -170,14 +134,14 @@ Use the design document template from `templates/design-document.md`.
 
 ### Completion Criteria
 The design document is complete when:
-- All sections have been presented and approved by the user
+- The document has been presented as read-only output
 - The agent team composition matches the task requirements
 - Phase dependencies are clearly mapped
 - Success criteria are measurable and specific
-- The user has given explicit final approval of the complete document
+- (No explicit final yes/no approval is required; proceed automatically)
 
 ### Post-Generation
 After writing the design document:
 1. Confirm the file path to the user
 2. Summarize key decisions made during the dialogue
-3. Ask if the user is ready to proceed to implementation planning (Phase 2)
+3. Proceed automatically to implementation planning (Phase 2) without asking for yes/no approval.

@@ -26,7 +26,7 @@ The orchestrator does not read or write hook-level state directly. It interacts 
 ## Session Creation Protocol
 
 ### When to Create
-Create a new session when beginning Phase 2 (Team Assembly & Planning) of orchestration, after the design document has been approved.
+Create a new session when beginning Phase 2 (Team Assembly & Planning) of orchestration, after the design document has been finalized.
 
 ### Session ID Format
 `YYYY-MM-DD-<topic-slug>`

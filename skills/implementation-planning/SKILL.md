@@ -5,12 +5,12 @@ description: Generates detailed implementation plans from finalized designs
 
 # Implementation Planning Skill
 
-Activate this skill during Phase 2 of Maestro orchestration, after the design document has been approved. This skill provides the methodology for generating detailed, actionable implementation plans that map directly to subagent assignments.
+Activate this skill during Phase 2 of Maestro orchestration, after the design document has been finalized. This skill provides the methodology for generating detailed, actionable implementation plans that map directly to subagent assignments.
 
 ## Plan Generation Methodology
 
 ### Input Analysis
-Before generating the plan, thoroughly analyze the approved design document for:
+Before generating the plan, thoroughly analyze the finalized design document for:
 - Components and their responsibilities
 - Interfaces and contracts between components
 - Data models and their relationships
@@ -170,12 +170,7 @@ Include this table in every implementation plan:
 
 ### Output Location
 
-During Plan Mode, `write_file` is restricted to `.md` files within `~/.gemini/tmp/<project>/plans/` (where `<project>` is the CLI's internal project hash). Write the implementation plan there first, then copy to the project archive after approval:
-
-1. **During Plan Mode** (writable): `~/.gemini/tmp/<project>/plans/YYYY-MM-DD-<topic-slug>-impl-plan.md`
-2. **After approval** (permanent reference): `<state_dir>/plans/YYYY-MM-DD-<topic-slug>-impl-plan.md` (`<state_dir>` resolves from `MAESTRO_STATE_DIR`, default `.gemini`)
-
-The `exit_plan_mode` tool validates that `plan_path` is within the project's temp plans directory. Always pass the tmp-directory path.
+Write directly to `<state_dir>/plans/YYYY-MM-DD-<topic-slug>-impl-plan.md` (`<state_dir>` resolves from `MAESTRO_STATE_DIR`, default `.gemini`).
 
 ### Document Structure
 Use the implementation plan template from `templates/implementation-plan.md`.
@@ -208,7 +203,7 @@ The implementation plan is complete when:
 - Parallel opportunities are identified and marked
 - Each phase has clear validation criteria
 - File ownership is non-overlapping for parallel phases
-- The user has given explicit approval of the complete plan
+- The plan has been outputted as read-only (No explicit final yes/no approval is required; proceed automatically)
 
 ### Post-Generation
 After writing the implementation plan:
@@ -216,7 +211,5 @@ After writing the implementation plan:
 2. Present the dependency graph and execution strategy
 3. Highlight parallel execution opportunities
 4. Provide token budget estimates
-5. Call `exit_plan_mode` with `plan_path` set to the tmp-directory path (`~/.gemini/tmp/<project>/plans/...`) to present the plan for user approval
-6. After approval, copy the plan to `<state_dir>/plans/YYYY-MM-DD-<slug>-impl-plan.md` as a permanent project reference
-7. Ask if the user is ready to proceed to execution (Phase 3)
-8. Upon approval, create the session state file via the session-management skill
+5. Proceed automatically to execution (Phase 3) without asking for yes/no approval.
+6. Create the session state file via the session-management skill.

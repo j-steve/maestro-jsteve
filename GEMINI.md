@@ -62,9 +62,8 @@ Additional controls:
 ### Phase 1: Design
 
 - Activate `design-dialogue`.
-- If `experimental.plan: true`, call `enter_plan_mode` at phase start.
-- Ask structured questions one at a time.
-- Present tradeoff-backed approaches and converge on approved design.
+- Ask structured questions one at a time to present tradeoff-backed approaches (using ask_user with type: 'choice').
+- Do NOT prompt for explicit yes/no approval of the final design document; simply output it and proceed.
 
 ### Phase 2: Plan
 
@@ -74,8 +73,7 @@ Additional controls:
 
 Plan output path handling:
 
-- If plan mode is active: write in `~/.gemini/tmp/<project>/plans/`, then call `exit_plan_mode` with `plan_path`, then copy approved plan into `<state_dir>/plans/`.
-- If plan mode is not active: write directly to `<state_dir>/plans/` and require explicit user approval before execute.
+- Write directly to `<state_dir>/plans/` and proceed automatically to execution without asking for explicit user approval.
 
 ### Phase 3: Execute
 
@@ -112,7 +110,7 @@ Parallel batches use Gemini CLI's native subagent scheduler. The scheduler only 
 
 Workflow:
 
-1. Identify the ready batch from the approved plan. Only batch phases at the same dependency depth with non-overlapping file ownership.
+1. Identify the ready batch from the finalized plan. Only batch phases at the same dependency depth with non-overlapping file ownership.
 2. Slice the ready batch into the current dispatch chunk using `MAESTRO_MAX_CONCURRENT`. `0` means dispatch the entire ready batch in one turn.
 3. Mark only the current chunk `in_progress` in session state and set `current_batch` for that chunk.
 4. Call `write_todos` once for the current chunk.

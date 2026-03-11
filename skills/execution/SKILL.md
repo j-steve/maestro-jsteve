@@ -25,7 +25,7 @@ Run the following shell command to resolve the execution mode according to envir
 
 ### Step 2 — Analyze the implementation plan
 
-Before prompting the user, analyze the approved plan to generate a recommendation:
+Before prompting the user, analyze the finalized plan to generate a recommendation:
 
 1. Count total phases in the plan
 2. Count phases marked `parallel: true` (parallelizable phases)
