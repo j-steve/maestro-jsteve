@@ -4,6 +4,14 @@ This project is a fork of the [Maestro-Gemini](https://github.com/josstei/maestr
 
 Please refer to the [upstream root project](https://github.com/josstei/maestro-gemini) for comprehensive documentation, usage instructions, and details on how the Maestro orchestrator works.
 
+## Installation
+
+You can install this extension directly into the Gemini CLI using the following command:
+
+```bash
+gemini extension install https://github.com/j-steve/maestro-jsteve
+```
+
 ## Differences from Upstream
 
 This fork includes several customizations and enhancements tailored for specific workflows:
