@@ -12,7 +12,7 @@ function resolveSetting(varName, projectRoot) {
   if (projectEnv[varName] !== undefined && projectEnv[varName] !== '') return projectEnv[varName];
 
   const extensionRoot = process.env.MAESTRO_EXTENSION_PATH ||
-    path.join(os.homedir(), '.gemini', 'extensions', 'maestro');
+    path.join(os.homedir(), '.gemini', 'extensions', 'maestro-jsteve');
   const extEnv = parseEnvFile(path.join(extensionRoot, '.env'));
   if (extEnv[varName] !== undefined && extEnv[varName] !== '') return extEnv[varName];
 

@@ -15,11 +15,13 @@ This gate MUST resolve before ANY delegation proceeds. Do not skip it. Do not de
 
 ### Step 1 — Read the configured mode
 
-Read `MAESTRO_EXECUTION_MODE` (default: `ask`).
+You MUST strictly determine the configured mode before asking the user.
+Run the following shell command to resolve the execution mode according to environment precedence:
+`node ${MAESTRO_EXTENSION_PATH:-$HOME/.gemini/extensions/maestro-jsteve}/scripts/get-setting.js MAESTRO_EXECUTION_MODE ask`
 
-- If `parallel`: record `execution_mode: parallel` and `execution_backend: native` in session state. Skip to delegation.
-- If `sequential`: record `execution_mode: sequential` and `execution_backend: native` in session state. Skip to delegation.
-- If `ask`: proceed to Step 2.
+- If the output is `parallel`: record `execution_mode: parallel` and `execution_backend: native` in session state. **Skip to delegation. DO NOT ask the user.**
+- If the output is `sequential`: record `execution_mode: sequential` and `execution_backend: native` in session state. **Skip to delegation. DO NOT ask the user.**
+- If the output is `ask`: proceed to Step 2.
 
 ### Step 2 — Analyze the implementation plan
 
