@@ -29,6 +29,11 @@ Before running orchestration commands:
 4. Run workspace preparation:
    - `node ./scripts/ensure-workspace.js <resolved-state-dir>`
    - Stop and report if it fails.
+5. Interactive Git Hygiene:
+   - Run `git status --porcelain` and `git fetch origin`.
+   - If the working directory has uncommitted changes or the branch is behind origin, **do not ask the user to resolve it manually**.
+   - Instead, use the `ask_user` tool (with `type: "choice"`) to present resolution options (e.g., "Stash and proceed", "Commit changes", "Drop changes", "Pull --rebase").
+   - Execute the chosen resolution via `run_shell_command` before proceeding to Phase 1.
 
 ## Gemini CLI Integration Constraints
 
