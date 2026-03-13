@@ -31,21 +31,27 @@ Break the implementation into phases following these principles:
 ### Phase Ordering Strategy
 
 ```
+Layer 0: Pre-Execution Bug Check (Optional - bug_triage_specialist: for gathering context or if relevant issues are suspected)
+    |
 Layer 1: Foundation (types, interfaces, configuration)
     |
 Layer 2: Core Domain (business logic, data models)
     |
 Layer 3: Infrastructure (database, external services, API layer)
     |
-Layer 4: Integration (connecting components, middleware)
+Layer 4: Issue Association & Creation (Mandatory - bug_triage_specialist: for linking commits to issues)
     |
-Layer 5: Quality (testing, security review, performance)
+Layer 5: Integration (connecting components, middleware)
     |
-Layer 6: Documentation & Polish
+Layer 6: Quality (testing, security review, performance)
     |
-Layer 7: Deployment & Rollout
+Layer 7: Documentation & Polish
     |
-Layer 8: Post-Deployment QA
+Layer 8: Deployment & Rollout
+    |
+Layer 9: Post-Deployment QA
+    |
+Layer 10: Issue Resolution & Update (Mandatory - bug_triage_specialist: for commenting, closing, or re-opening issues after QA)
 ```
 
 ### Parallelization Identification

@@ -203,6 +203,7 @@ All agent names use **snake_case** (underscores, not hyphens). When delegating t
 | `tester` | Test implementation | Read/write/shell + todos + skill activation + web search |
 | `deployer` | Deployment & rollout | Git push + pipeline monitoring |
 | `qa_tester` | Post-deployment QA | Read + shell + web search/fetch |
+| `bug_triage_specialist` | GitHub Issue Tracking | Read/write/shell + gh CLI |
 
 ## Hooks
 
