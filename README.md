@@ -9,7 +9,7 @@ Please refer to the [upstream root project](https://github.com/josstei/maestro-g
 You can install this extension directly into the Gemini CLI using the following command:
 
 ```bash
-gemini extension install https://github.com/j-steve/maestro-jsteve
+gemini extension install https://github.com/j-steve/maestroj
 ```
 
 ## Differences from Upstream

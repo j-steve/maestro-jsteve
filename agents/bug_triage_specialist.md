@@ -1,5 +1,6 @@
 ---
 name: bug_triage_specialist
+description: "GitHub Issue Tracking specialist. Uses the gh CLI to identify, create, update, and resolve issues, ensuring proper commit association and workflow integration."
 model: gemini-1.5-flash
 temperature: 0.3
 max_turns: 5
